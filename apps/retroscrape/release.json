@@ -1,0 +1,25 @@
+{
+  "id": "retroscrape",
+  "name": "RetroScrape",
+  "version": "REPLACE_WITH_VERSION",
+  "summary": "Validate ROM collections and retrieve game metadata on TF1.",
+  "category": "Emulation",
+  "keywords": [
+    "roms",
+    "scraping",
+    "metadata",
+    "validation",
+    "covers"
+  ],
+  "icon": "catalogue/icons/retroscrape.png",
+  "launcher": "RetroScrape.sh",
+  "directory": "RetroScrape",
+  "entrypoint": "main.py",
+  "capabilities": [
+    "network",
+    "system-information",
+    "persistent-data"
+  ],
+  "release_tag": "retroscrape-vREPLACE_WITH_VERSION",
+  "release_asset": "retroscrape-REPLACE_WITH_VERSION.zip"
+}
