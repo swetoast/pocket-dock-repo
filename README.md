@@ -252,14 +252,3 @@ Catalogue icons
 Packaged application assets
 Tests belonging to each application
 ```
-
-## Current catalogue
-
-The catalogue currently contains:
-
-```text
-Diagnostics
-RetroScrape
-```
-
-Both applications use the same repository structure and remain independently versioned.
