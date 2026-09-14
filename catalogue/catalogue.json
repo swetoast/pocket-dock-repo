@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "applications": [
+    {
+      "id": "pocket-terminal",
+      "name": "Pocket Terminal",
+      "version": "0.0.27",
+      "summary": "A fullscreen local Linux terminal with a controller-operated keyboard and contextual completion.",
+      "category": "Utilities",
+      "keywords": [
+        "terminal",
+        "shell",
+        "linux",
+        "command-line",
+        "ssh",
+        "system-tools"
+      ],
+      "icon": "icons/pocket-terminal.png",
+      "package": "apps/pocket-terminal/source",
+      "published": true,
+      "launcher": "Pocket Terminal.sh",
+      "application_directory": "Pocket Terminal",
+      "entry_point": "main.py",
+      "capabilities": [
+        "network",
+        "input",
+        "system-information",
+        "persistent-data",
+        "external-process"
+      ]
+    }
+  ]
+}

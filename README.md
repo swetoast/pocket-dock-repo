@@ -1,10 +1,8 @@
 # Pocket Dock Repository
 
-This repository contains the application catalogue and source packages used by **Pocket Dock**, an application browser and installer for the Anbernic RG40XX V official Linux firmware.
+This repository contains the application catalogue and source packages used by Pocket Dock, an application browser and installer for the Anbernic RG40XX V official Linux firmware.
 
-Applications are maintained together in one monorepo while keeping independent metadata, versions, icons and packages.
-
-Pocket Dock reads `catalogue/catalogue.json` to display available applications and retrieve the corresponding package.
+Applications are maintained in one monorepo while keeping independent metadata, versions, icons and source packages. Pocket Dock reads `catalogue/catalogue.json` to display published applications and locate their packages.
 
 ## Repository structure
 
@@ -28,20 +26,9 @@ pocket-dock-repo/
 
 ## Applications
 
-Each application has its own directory under:
+Each application has an independent directory under `apps/<app-id>/` containing repository metadata and the complete installable source layout.
 
-```text
-apps/<app-id>/
-```
-
-The directory contains:
-
-```text
-release.json
-source/
-```
-
-The `source/` directory contains the application launcher and matching application folder:
+The `source/` directory contains exactly one launcher and its matching application directory:
 
 ```text
 source/
@@ -52,130 +39,45 @@ source/
     └── ...
 ```
 
-Each application is self-contained and versioned independently.
+## Metadata
 
-## Application metadata
+Repository metadata is stored in `apps/<app-id>/release.json`. Package metadata is stored in `apps/<app-id>/source/<Application>/app.json`.
 
-Each application uses two metadata files.
-
-### `release.json`
-
-Location:
-
-```text
-apps/<app-id>/release.json
-```
-
-This file describes the application in the repository and catalogue.
-
-It contains:
+The following values must match across `release.json`, `app.json` and `catalogue/catalogue.json`:
 
 - Application ID
 - Display name
 - Version
-- Summary
-- Category
-- Search keywords
-- Icon path
-- Launcher name
+- Launcher
 - Application directory
 - Entry point
 - Capabilities
-- Package identity
-
-### `app.json`
-
-Location:
-
-```text
-apps/<app-id>/source/<Application>/app.json
-```
-
-This file is included with the application package and provides the information Pocket Dock validates before installation.
-
-It contains:
-
-- Application ID
-- Display name
-- Version
-- Optional author
-- Summary
-- Launcher name
-- Application directory
-- Entry point
-- Capabilities
-
-The application ID, version, launcher and application directory stay consistent across:
-
-```text
-release.json
-app.json
-catalogue/catalogue.json
-```
 
 ## Catalogue
 
-The Pocket Dock catalogue is stored at:
+The catalogue is stored at `catalogue/catalogue.json`. Pocket Dock displays entries where `published` is `true`.
 
-```text
-catalogue/catalogue.json
-```
-
-The catalogue contains the information displayed by Pocket Dock:
-
-- Application ID
-- Name
-- Version
-- Summary
-- Category
-- Search keywords
-- Icon
-- Package location
-- Publication state
-
-The catalogue is available from:
-
-```text
-https://raw.githubusercontent.com/swetoast/pocket-dock-repo/main/catalogue/catalogue.json
-```
-
-Applications under preparation use:
-
-```json
-"published": false
-```
-
-Pocket Dock displays entries where:
-
-```json
-"published": true
-```
-
-## Icons
-
-Application icons are stored under:
-
-```text
-catalogue/icons/
-```
-
-The icon filename matches the application ID:
-
-```text
-catalogue/icons/<app-id>.png
-```
-
-Icons use transparent PNG artwork designed to remain clear at Pocket Dock's list-icon size.
-
-Catalogue icon paths are relative to `catalogue/catalogue.json`:
+Catalogue icon paths are relative to the `catalogue/` directory:
 
 ```json
 "icon": "icons/<app-id>.png"
 ```
 
-## Application packages
+Package paths are repository-relative and point to the application's `source/` directory.
 
-Pocket Dock installs application packages containing one launcher and its matching application directory:
+## Icons
+
+Application icons use transparent PNG artwork and are stored under `catalogue/icons/`. The filename matches the application ID.
+
+## Installation layout
+
+Pocket Dock installs the launcher and matching application directory under:
+
+```text
+/mnt/mmc/Roms/APPS
+```
+
+A valid application package has this root layout:
 
 ```text
 <Launcher>.sh
@@ -185,40 +87,11 @@ Pocket Dock installs application packages containing one launcher and its matchi
 └── ...
 ```
 
-Example:
-
-```text
-Example_App.sh
-Example_App/
-├── app.json
-├── main.py
-├── assets/
-└── ...
-```
-
-Pocket Dock validates the catalogue entry, package metadata and package structure before installing the application under:
-
-```text
-/mnt/mmc/Roms/APPS
-```
-
 ## Independent versions
 
-Every application has its own version.
-
-Updating one application does not require changing the versions of other applications in the monorepo.
-
-An application version is recorded consistently in:
-
-```text
-apps/<app-id>/release.json
-apps/<app-id>/source/<Application>/app.json
-catalogue/catalogue.json
-```
+Each application is versioned independently. Updating one application does not change the versions of other applications in the monorepo.
 
 ## Capabilities
-
-Application metadata can describe the device features used by an application.
 
 Supported capability labels include:
 
@@ -232,23 +105,14 @@ persistent-data
 external-process
 ```
 
-Pocket Dock displays these capabilities on the application details page.
+## Current applications
 
-## Repository content
+### Pocket Terminal
 
-Application source includes the files required to build and package each application.
+Pocket Terminal is the first application in the repository.
 
-Runtime data is created or downloaded by the application when required. This keeps the repository focused on source, metadata and packaged assets.
-
-The repository includes:
-
-```text
-Application source
-Launchers
-Application manifests
-Release metadata
-Catalogue metadata
-Catalogue icons
-Packaged application assets
-Tests belonging to each application
-```
+- Application ID: `pocket-terminal`
+- Version: `0.0.27`
+- Category: `Utilities`
+- Publication state: published
+- Source: `apps/pocket-terminal/source/`
