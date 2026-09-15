@@ -71,7 +71,7 @@ export PYTHONSAFEPATH=1
 export SDL_NOMOUSE=1
 export PYTHONDONTWRITEBYTECODE=1
 export TERM=xterm-256color
-unset PYTHONHOME LD_PRELOAD LD_LIBRARY_PATH
+unset PYTHONHOME LD_PRELOAD
 
 cd "$APP_DIR" || exit 1
 /usr/bin/python3 "$APP_DIR/main.py" >> "$LOG_FILE" 2>&1
